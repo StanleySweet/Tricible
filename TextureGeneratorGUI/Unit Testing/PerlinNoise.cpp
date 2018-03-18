@@ -12,20 +12,24 @@
 #include <iostream>
 #include <string>
 
-#include "../../Engine/Renderer.hpp"
+#include "../../Engine/Rendering/Renderer.hpp"
 
 #include "../../TextureGenerator/PerlinNoise.hpp"
 #include "../../TextureGenerator/GradientsLinear.hpp"
 
-#include "Windows.h" // TODO PCO dépendance Windows.h pour la fonction "GetCurrentDirectory"
+#ifdef _MSC_VER
+#include "Windows.h" // TODO PCO dÃ©pendance Windows.h pour la fonction "GetCurrentDirectory"
+#define MAX_PATH 260
+#else
+#endif
 
 namespace UT
 {
 	#define		SIZE_IMG_WIDTH	800		// taille de l'image PNG
 	#define		SIZE_IMG_HEIGHT	500		// taille de l'image PNG
 
-	// Va générer une image PNG dans le dossier courant
-	// Courbe à une dimension - de gauche à droite
+	// Va gÃ©nÃ©rer une image PNG dans le dossier courant
+	// Courbe Ã  une dimension - de gauche Ã  droite
 	// L'axe X est constant (horizontal)
 	// L'axe Y varie (vertical)
 	void PerlinNoise_1D()
@@ -52,8 +56,8 @@ namespace UT
 		delete[] result;
 	}
 
-	// Va générer une image PNG dans le dossier courant
-	// Courbe à une dimension - de gauche à droite
+	// Va gÃ©nÃ©rer une image PNG dans le dossier courant
+	// Courbe Ã  une dimension - de gauche Ã  droite	
 	// L'axe X est constant (horizontal)
 	// L'axe Y varie (vertical)
 	void PerlinNoise_1D_Stacked()
@@ -80,7 +84,7 @@ namespace UT
 		delete[] result;
 	}
 
-	// Va générer une image PNG dans le dossier courant
+	// Va gÃ©nÃ©rer une image PNG dans le dossier courant
 	// Nuage de gris
 	void PerlinNoise_2D()
 	{
@@ -111,7 +115,7 @@ namespace UT
 		delete[] result;
 	}
 
-	// Va générer une image PNG dans le dossier courant
+	// Va gÃ©nÃ©rer une image PNG dans le dossier courant
 	// Nuage de gris
 	void PerlinNoise_2D_Stacked()
 	{
@@ -142,8 +146,8 @@ namespace UT
 		delete[] result;
 	}
 
-	// Va générer une image PNG dans le dossier courant
-	// Nuage de gris qui est ensuite colorisé avec une liste de gradientColor
+	// Va gÃ©nÃ©rer une image PNG dans le dossier courant
+	// Nuage de gris qui est ensuite colorisÃ© avec une liste de gradientColor
 	void PerlinNoise_2D_Stacked_With_Color()
 	{
 		// compute perlin noise
@@ -217,10 +221,14 @@ namespace UT
 
 	int run_unit_testing_perlin_noise()
 	{
+		#ifdef _MSC_VER
+		char path_current_directory[MAX_PATH + 1] = "Windows broke :D";
+		#else
 		char path_current_directory[MAX_PATH + 1];
 
 		GetCurrentDirectory(MAX_PATH, path_current_directory);
 
+		#endif
 		std::cout << "----------------------------------------" << std::endl;
 		std::cout << "By PCO : Unit Testing / Perlin Noise" << std::endl;
 		std::cout << "Current Directories : " << path_current_directory << std::endl;
@@ -240,4 +248,3 @@ namespace UT
 		return 0;
 	}
 }
-

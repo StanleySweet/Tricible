@@ -7,7 +7,7 @@
 #include <cassert>
 
 // Tricible
-#include "../Engine/Tools.hpp"
+#include "../Engine/Tools/Tools.hpp"
 #include "../Engine/Color/RGBA.hpp"
 
 #include "GradientPoint.hpp"
